@@ -18,11 +18,11 @@ function [dR_ij, dv_ij, dp_ij] = preintegrated_measurement(dt_ij, w_ij, ...
     %   ba_i        Accelerometer bias at first keyframe, R^3
     %
     % Outputs:
-    %   dR_ik       Relative rotation matrix estimate of body frame w.r.t.
+    %   dR_ij       Relative rotation matrix estimate of body frame w.r.t.
     %               world frame at j (relative to i), SO(3)
-    %   dv_ik     	Relative world-frame velocity estimate at j (relative
+    %   dv_ij     	Relative world-frame velocity estimate at j (relative
     %               to i), R^3 
-    %   dp_ik     	Relative world-frame position estimate at j (relative
+    %   dp_ij     	Relative world-frame position estimate at j (relative
     %               to i), R^3 
     %
     % Contributors: Joseph Yates
