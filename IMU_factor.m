@@ -45,7 +45,7 @@ Ri = Xi.R;
 Pi = Xi.P;
 Vi = Xi.V;
 
-g = [0;0;-9.8066];
+g = [0;0;-9.80665];
 
 tij = imu.time(keyframe_j)-imu.time(keyframe_i);
 
