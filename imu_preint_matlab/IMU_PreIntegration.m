@@ -5,7 +5,7 @@
 % Script: Run this in its current directory using MATLAB.
 %
 % Contributors: Yizhou Lu, Joseph Yates
-% Last Edited: 20190406
+% Last Edited: 20190413
 
 clc;clear;close all
 
@@ -23,22 +23,26 @@ axis equal;grid on;hold on
 % for i = 1:100
 %     quiver(mocap.position(1,i),mocap.position(2,i),0.05*cos(mocap.position(3,i)),0.05*sin(mocap.position(3,i)))
 % end
-R = eye(3);
+% R = eye(3);
+R = quat2rotm(imu.orientation(:,1)');
 v = zeros(3,1);
-p = zeros(3,1);
+% p = zeros(3,1);
+p = mocap.position(:,1);
 bg = zeros(3,1);
 ba = zeros(3,1);
 g = [0 0 -9.80665]';
 dt = 0.0005;
 
-for kk = 1:length(imu.angularVelocity)
+Traj(:,1) = p;
+
+for kk = 1:length(imu.time)
 %     R = R*rotation_matrix(imu.angularVelocity(:,kk),dt);
 %     v = v+R*imu.linearAcceleration(:,kk)*dt;
 %     p = p+v*dt+0.5*R*imu.linearAcceleration(:,kk)*dt^2;
     
     [R, v, p] = imu_model_integration(imu.angularVelocity(:,kk), ... 
         imu.linearAcceleration(:,kk), R, v, p, bg, ba, g, dt);
-    Traj(:,kk) = p;
+    Traj(:,kk+1) = p;
 end
 
 figure(1)

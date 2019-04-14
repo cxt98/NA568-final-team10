@@ -44,12 +44,13 @@ function [dt_ij, w_ij, a_ij] = isolate_increment(ti, tj, t_imu, w_imu, ...
     % Get all time instances
     t_ij = t_imu(1,ii:jj);
     % Get all measurement instances (instance j-exclusive)
-    w_ij = w_imu(3,ii:jj-1);
-    a_ij = a_imu(3,ii:jj-1);
+    w_ij = w_imu(:,ii:jj-1);
+    a_ij = a_imu(:,ii:jj-1);
     
     % Calculate time increments which start at time instances i through j-1
-    dt_ij = zeros(1,length(t_ij)-1);
+    n_ts = length(t_ij)-1;
+    dt_ij = zeros(1,n_ts);
     for kk = 1:n_ts
-        dt_ij(kk) = t_ij(k+1) - t_ij(k);
+        dt_ij(kk) = t_ij(kk+1) - t_ij(kk);
     end
 end

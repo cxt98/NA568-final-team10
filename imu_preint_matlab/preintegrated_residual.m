@@ -36,7 +36,7 @@ function [r_dRij, r_dvij, r_dpij] = preintegrated_residual(R_i, R_j, ...
     %               keyframes i and j, R^3
     %   r_dvij     	Relative velocity residual for an IMU factor between
     %               keyframes i and j, R^3
-    %   r_dpij     	Relative position residual for an IMU factor between
+    %   r_dpij     	Relative position residual for an IMU factor between                                                                                           
     %               keyframes i and j, R^3
     %
     % Contributors: Joseph Yates

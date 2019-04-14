@@ -18,11 +18,15 @@ function phi_R3 = log_map(phi_SO3)
     
     % Check if in SO(3) and != I
     check_SO3(phi_SO3);
-    assert(phi_SO3 ~= eye(3), 'Input matrix may not equal I.');
+    % We could make a threshold check here, but during residual
+    % calculation, this matrix will be very close to I_3x3 anyways. Since
+    % we don't want to throw out any cases arbitrarily close to I, we make
+    % this a hard not-equals.
+    assert(all(phi_SO3 ~= eye(3),'all'), 'Input matrix may not equal I.');
     
     % Convert to so(3)
-    phis = acos((tr(phi_SO3) - 1)/2);
-    phi_so3 = phis * (R - R') / (2 * sin(phis));
+    phis = acos((trace(phi_SO3) - 1)/2);
+    phi_so3 = phis * (phi_SO3 - phi_SO3') / (2 * sin(phis));
     
     % Convert to R^3
     phi_R3 = so3_to_vector(phi_so3);    

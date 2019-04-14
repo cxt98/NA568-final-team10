@@ -15,8 +15,12 @@ function check_SO3(m)
     % Contributors: Joseph Yates
     % Last Edited: 20190405
 
+    % Establish a numerical accuracy cutoff threshold
+    eps = 1e-13;
+    
+    % Run checks
     sz = size(m);
     assert((sz(1) == 3 && sz(2) == 3),'Matrix not 3x3');    
-    assert((det(m) == 1 && R'*R == eye(3) && R*R' == eye(3)), ...
-            'Matrix not in SO(3)');
+    assert((det(m) - 1 < eps && all(m'*m - eye(3) < eps,'all') && ... 
+            all(m*m' - eye(3) < eps,'all')), 'Matrix not in SO(3)');
 end
