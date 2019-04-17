@@ -22,4 +22,6 @@
 
 # MATLAB-related #
 *.asv
+gtsam-toolbox-3.2.0-lin64
+gtsam-toolbox-3.2.0-mac64
 gtsam-toolbox-3.2.0-win64
