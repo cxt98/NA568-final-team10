@@ -1,0 +1,37 @@
+clear
+timestamps = load('KITTI_Timestamps.txt');
+save matlab_format_data/timestamps.mat timestamps
+
+global_p = load('ground_truth.txt');
+for i = 1:size(global_p,1)
+    Twc = [global_p(i,1:4); global_p(i,5:8); global_p(i,9:12); 0 0 0 1];
+    ground_truth.Twc{i,1} = Twc;
+end
+save matlab_format_data/ground_truth.mat ground_truth
+
+KF = load('KITTI_KeyFrame_Trajectory.txt');
+for i = 1:size(KF,1)
+    Twc = [KF(i,1:4); KF(i,5:8); KF(i,9:12); 0 0 0 1];
+    Keyframe.Twc{i,1} = Twc;
+end
+save matlab_format_data/Keyframe.mat Keyframe
+
+Tvb = [9.999976e-01 7.553071e-04 -2.035826e-03 -8.086759e-01;
+    -7.854027e-04 9.998898e-01 -1.482298e-02 3.195559e-01;
+    2.024406e-03 1.482454e-02 9.998881e-01 -7.997231e-01;
+    0 0 0 1];
+Tcv = [7.967514e-03 -9.999679e-01 -8.462264e-04 -1.377769e-02;
+    -2.771053e-03 8.241710e-04 -9.999958e-01 -5.542117e-02;
+    9.999644e-01 7.969825e-03 -2.764397e-03 -2.918589e-01;
+        0 0 0 1];
+Tcb = Tcv * Tvb;
+save matlab_format_data/Tcb.mat Tcb
+
+xsens_imu = csvread('xsens_imu.csv');
+imu.timestamps = xsens_imu(:,1) / 1e9;
+for i = 1:length(imu.timestamps)
+    imu.gyr{i,1} = xsens_imu(i,9:11);
+    imu.acc{i,1} = xsens_imu(i,12:14);
+end
+save imu.mat imu
+
