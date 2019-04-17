@@ -1,0 +1,21 @@
+clear
+global_p = csvread('global_pose.csv');
+global_pose.timestamps = global_p(:,1) / 1e9;
+for i = 1:length(global_pose.timestamps)
+    T = [global_p(i,2:5); global_p(i,6:9); global_p(i,10:13); 0 0 0 1];
+    global_pose.Transformation{i,1} = T;
+end
+save global_pose.mat global_pose
+
+KF = load('KAIST_KeyFrame_Trajectory.txt');
+Keyframe.timestamps = KF(:,1);
+for i = 1:length(Keyframe.timestamps)
+    Twc = [KF(i,2:5); KF(i,6:9); KF(i,10:13); 0 0 0 1];
+    Keyframe.Twc{i,1} = Twc;
+end
+save Keyframe.mat Keyframe
+
+Tvb = [eye(3), [-0.07; 0; 1.7]; 0 0 0 1];
+pb =  Tvb' * [-0.07; 0; 1.7]
+%Tcb = 
+
