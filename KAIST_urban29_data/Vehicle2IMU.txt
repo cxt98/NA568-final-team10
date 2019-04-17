@@ -1,0 +1,5 @@
+IMU extrinsic calibration parameter from vehicle
+RPY(roll/pitch/yaw, degree), R(rotation matrix), T(translation matrix)
+RPY: 0 0 0
+R: 1 0 0 0 1 0 0 0 1 
+T: -0.07 0 1.7

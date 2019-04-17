@@ -1,0 +1,5 @@
+Stereo camera (based on left camera) extrinsic calibration parameter from vehicle
+RPY(roll/pitch/yaw, degree), R(rotation matrix), T(translation matrix)
+RPY: -91.1241 -0.632202 -90.2369
+R: -0.00413442 -0.0196634 0.999798 -0.999931 -0.0109505 -0.00435034 0.0110338 -0.999747 -0.0196168 
+T: 1.66944 0.278027 1.61215
