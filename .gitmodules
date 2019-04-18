@@ -1,3 +1,6 @@
 [submodule "gtsam"]
 	path = gtsam
 	url = https://github.com/borglab/gtsam.git
+[submodule "ORB_SLAM2"]
+	path = ORB_SLAM2
+	url = https://github.com/raulmur/ORB_SLAM2.git
