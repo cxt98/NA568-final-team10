@@ -10,6 +10,7 @@
 % Housekeeping
 clear all;
 close all;
+addpath('lib');
 
 % Load Dataset
 load('test_data/mocap_vectorNav_data.mat');
