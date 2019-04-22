@@ -46,7 +46,7 @@ void Map::UpdateScale(const double &scale)
         MapPoint* pMP = *sit;
         pMP->UpdateScale(scale);
     }
-    std::cout<<std::endl<<"... Map scale updated ..."<<std::endl<<std::endl;
+//    std::cout<<std::endl<<"... Map scale updated ..."<<std::endl<<std::endl;
 }
 
 

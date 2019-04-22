@@ -56,13 +56,13 @@ void KeyFrame::SetInitialNavStateAndBias(const NavState& ns)
     mNavState.Set_DeltaBiasAcc(Vector3d::Zero());
 }
 
-KeyFrame* KeyFrame::GetPrevKeyFrame(void)
+KeyFrame* KeyFrame::GetPrevKeyFrame()
 {
     unique_lock<mutex> lock(mMutexPrevKF);
     return mpPrevKeyFrame;
 }
 
-KeyFrame* KeyFrame::GetNextKeyFrame(void)
+KeyFrame* KeyFrame::GetNextKeyFrame()
 {
     unique_lock<mutex> lock(mMutexNextKF);
     return mpNextKeyFrame;
@@ -80,7 +80,7 @@ void KeyFrame::SetNextKeyFrame(KeyFrame* pKF)
     mpNextKeyFrame = pKF;
 }
 
-std::vector<IMUData> KeyFrame::GetVectorIMUData(void)
+std::vector<IMUData> KeyFrame::GetVectorIMUData()
 {
     unique_lock<mutex> lock(mMutexIMUData);
     return mvIMUData;
@@ -127,7 +127,7 @@ void KeyFrame::SetNavState(const NavState& ns)
     mNavState = ns;
 }
 
-const NavState& KeyFrame::GetNavState(void)
+const NavState& KeyFrame::GetNavState()
 {
     unique_lock<mutex> lock(mMutexNavState);
     return mNavState;
@@ -181,20 +181,20 @@ void KeyFrame::SetNavStateDeltaBa(const Vector3d &dba)
     mNavState.Set_DeltaBiasAcc(dba);
 }
 
-const IMUPreintegrator & KeyFrame::GetIMUPreInt(void)
+const IMUPreintegrator & KeyFrame::GetIMUPreInt()
 {
     unique_lock<mutex> lock(mMutexIMUData);
     return mIMUPreInt;
 }
 
-void KeyFrame::ComputePreInt(void)
+void KeyFrame::ComputePreInt()
 {
     unique_lock<mutex> lock(mMutexIMUData);
-    if(mpPrevKeyFrame == NULL)
+    if(mpPrevKeyFrame == nullptr)
     {
         if(mnId!=0)
         {
-            cerr<<"previous KeyFrame is NULL, pre-integrator not changed. id: "<<mnId<<endl;
+            cerr<<"previous KeyFrame is nullptr, pre-integrator not changed. id: "<<mnId<<endl;
         }
         return;
     }
@@ -257,7 +257,7 @@ KeyFrame::KeyFrame(Frame &F, Map* pMap, KeyFrameDatabase* pKFDB, std::vector<IMU
     mfLogScaleFactor(F.mfLogScaleFactor), mvScaleFactors(F.mvScaleFactors), mvLevelSigma2(F.mvLevelSigma2),
     mvInvLevelSigma2(F.mvInvLevelSigma2), mnMinX(F.mnMinX), mnMinY(F.mnMinY), mnMaxX(F.mnMaxX),
     mnMaxY(F.mnMaxY), mK(F.mK), mvpMapPoints(F.mvpMapPoints), mpKeyFrameDB(pKFDB),
-    mpORBvocabulary(F.mpORBvocabulary), mbFirstConnection(true), mpParent(NULL), mbNotErase(false),
+    mpORBvocabulary(F.mpORBvocabulary), mbFirstConnection(true), mpParent(nullptr), mbNotErase(false),
     mbToBeErased(false), mbBad(false), mHalfBaseline(F.mb/2), mpMap(pMap)
 {
     mvIMUData = vIMUData;
@@ -269,7 +269,7 @@ KeyFrame::KeyFrame(Frame &F, Map* pMap, KeyFrameDatabase* pKFDB, std::vector<IMU
         pPrevKF->SetNextKeyFrame(this);
     }
     mpPrevKeyFrame = pPrevKF;
-    mpNextKeyFrame = NULL;
+    mpNextKeyFrame = nullptr;
 
     //---------------------------
 
@@ -302,14 +302,14 @@ KeyFrame::KeyFrame(Frame &F, Map *pMap, KeyFrameDatabase *pKFDB):
     mfLogScaleFactor(F.mfLogScaleFactor), mvScaleFactors(F.mvScaleFactors), mvLevelSigma2(F.mvLevelSigma2),
     mvInvLevelSigma2(F.mvInvLevelSigma2), mnMinX(F.mnMinX), mnMinY(F.mnMinY), mnMaxX(F.mnMaxX),
     mnMaxY(F.mnMaxY), mK(F.mK), mvpMapPoints(F.mvpMapPoints), mpKeyFrameDB(pKFDB),
-    mpORBvocabulary(F.mpORBvocabulary), mbFirstConnection(true), mpParent(NULL), mbNotErase(false),
+    mpORBvocabulary(F.mpORBvocabulary), mbFirstConnection(true), mpParent(nullptr), mbNotErase(false),
     mbToBeErased(false), mbBad(false), mHalfBaseline(F.mb/2), mpMap(pMap)
 {
     // Test log
     cerr<<"shouldn't call this KeyFrame()"<<endl;
 
-    mpPrevKeyFrame = NULL;
-    mpNextKeyFrame = NULL;
+    mpPrevKeyFrame = nullptr;
+    mpNextKeyFrame = nullptr;
 
     mnId=nNextId++;
 
@@ -484,14 +484,14 @@ void KeyFrame::AddMapPoint(MapPoint *pMP, const size_t &idx)
 void KeyFrame::EraseMapPointMatch(const size_t &idx)
 {
     unique_lock<mutex> lock(mMutexFeatures);
-    mvpMapPoints[idx]=static_cast<MapPoint*>(NULL);
+    mvpMapPoints[idx]=static_cast<MapPoint*>(nullptr);
 }
 
 void KeyFrame::EraseMapPointMatch(MapPoint* pMP)
 {
     int idx = pMP->GetIndexInKeyFrame(this);
     if(idx>=0)
-        mvpMapPoints[idx]=static_cast<MapPoint*>(NULL);
+        mvpMapPoints[idx]=static_cast<MapPoint*>(nullptr);
 }
 
 
@@ -594,7 +594,7 @@ void KeyFrame::UpdateConnections()
     //If the counter is greater than threshold add connection
     //In case no keyframe counter is over threshold add the one with maximum counter
     int nmax=0;
-    KeyFrame* pKFmax=NULL;
+    KeyFrame* pKFmax=nullptr;
     int th = 15;
 
     vector<pair<int,KeyFrame*> > vPairs;
@@ -828,11 +828,11 @@ void KeyFrame::SetBadFlag()
         pPrevKF->SetNextKeyFrame(pNextKF);
     if(pNextKF)
         pNextKF->SetPrevKeyFrame(pPrevKF);
-    SetPrevKeyFrame(NULL);
-    SetNextKeyFrame(NULL);
+    SetPrevKeyFrame(nullptr);
+    SetNextKeyFrame(nullptr);
     // Test log.
-    if(!pPrevKF) cerr<<"It's culling the first KF? pPrevKF=NULL. Current id: "<<mnId<<endl;
-    if(!pNextKF) cerr<<"It's culling the latest KF? pNextKF=NULL. Current id: "<<mnId<<endl;
+    if(!pPrevKF) cerr<<"It's culling the first KF? pPrevKF=nullptr. Current id: "<<mnId<<endl;
+    if(!pNextKF) cerr<<"It's culling the latest KF? pNextKF=nullptr. Current id: "<<mnId<<endl;
     if(pPrevKF && pNextKF)
     {
         if(pPrevKF->isBad()) cerr<<"Prev KF isbad in setbad. previd: "<<pPrevKF->mnId<<", current id"<<mnId<<endl;

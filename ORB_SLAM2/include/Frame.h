@@ -49,13 +49,13 @@ public:
 
     // Constructor for stereo orbvio
     Frame(const cv::Mat &imLeft, const cv::Mat &imRight, const double &timeStamp, const std::vector<IMUData> &vimu, ORBextractor* extractorLeft, ORBextractor* extractorRight, ORBVocabulary* voc,
-          cv::Mat &K, cv::Mat &distCoef, const float &bf, const float &thDepth,KeyFrame *pLastKF=NULL);
+          cv::Mat &K, cv::Mat &distCoef, const float &bf, const float &thDepth,KeyFrame *pLastKF=nullptr);
 
     void ComputeIMUPreIntSinceLastFrame(const Frame* pLastF, IMUPreintegrator& imupreint) const;
     void UpdatePoseFromNS(const cv::Mat &Tbc);
     void SetInitialNavStateAndBias(const NavState& ns);
     void UpdateNavState(const IMUPreintegrator& imupreint, const Vector3d& gw);
-    const NavState& GetNavState(void) const;
+    const NavState& GetNavState() const;
     void SetNavState(const NavState& ns);
     void SetNavStateBiasGyr(const Vector3d &bg);
     void SetNavStateBiasAcc(const Vector3d &ba);
@@ -177,7 +177,7 @@ public:
     // ORB descriptor, each row associated to a keypoint.
     cv::Mat mDescriptors, mDescriptorsRight;
 
-    // MapPoints associated to keypoints, NULL pointer if no association.
+    // MapPoints associated to keypoints, nullptr pointer if no association.
     std::vector<MapPoint*> mvpMapPoints;
 
     // Flag to identify outlier associations.

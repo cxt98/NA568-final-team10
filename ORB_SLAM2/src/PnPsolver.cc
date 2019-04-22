@@ -355,7 +355,7 @@ void PnPsolver::set_maximum_number_of_correspondences(int n)
   }
 }
 
-void PnPsolver::reset_correspondences(void)
+void PnPsolver::reset_correspondences()
 {
   number_of_correspondences = 0;
 }
@@ -372,7 +372,7 @@ void PnPsolver::add_correspondence(double X, double Y, double Z, double u, doubl
   number_of_correspondences++;
 }
 
-void PnPsolver::choose_control_points(void)
+void PnPsolver::choose_control_points()
 {
   // Take C0 as the reference points centroid:
   cws[0][0] = cws[0][1] = cws[0][2] = 0;
@@ -408,7 +408,7 @@ void PnPsolver::choose_control_points(void)
   }
 }
 
-void PnPsolver::compute_barycentric_coordinates(void)
+void PnPsolver::compute_barycentric_coordinates()
 {
   double cc[3 * 3], cc_inv[3 * 3];
   CvMat CC     = cvMat(3, 3, CV_64F, cc);
@@ -463,7 +463,7 @@ void PnPsolver::compute_ccs(const double * betas, const double * ut)
   }
 }
 
-void PnPsolver::compute_pcs(void)
+void PnPsolver::compute_pcs()
 {
   for(int i = 0; i < number_of_correspondences; i++) {
     double * a = alphas + 4 * i;
@@ -633,7 +633,7 @@ void PnPsolver::print_pose(const double R[3][3], const double t[3])
   cout << R[2][0] << " " << R[2][1] << " " << R[2][2] << " " << t[2] << endl;
 }
 
-void PnPsolver::solve_for_sign(void)
+void PnPsolver::solve_for_sign()
 {
   if (pcs[2] < 0.0) {
     for(int i = 0; i < 4; i++)

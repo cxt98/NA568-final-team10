@@ -50,7 +50,7 @@ class LoopClosing;
 class System
 {
 public:
-    bool bLocalMapAcceptKF(void);
+    bool bLocalMapAcceptKF();
     void SaveKeyFrameTrajectoryNavState(const string& filename);
 
 public:

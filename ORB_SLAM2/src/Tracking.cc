@@ -246,7 +246,7 @@ bool Tracking::TrackLocalMapWithIMU(bool bMapUpdated)
                     mnMatchesInliers++;
             }
             else if (mSensor == System::STEREO)
-                mCurrentFrame.mvpMapPoints[i] = static_cast<MapPoint*>(NULL);
+                mCurrentFrame.mvpMapPoints[i] = static_cast<MapPoint*>(nullptr);
 
         }
     }
@@ -309,7 +309,7 @@ void Tracking::PredictNavStateByIMU(bool bMapUpdated)
 
 bool Tracking::TrackWithIMU(bool bMapUpdated)
 {
-    cout << "track with IMU" << endl;
+//    cout << "tracking with IMU" << endl;
     ORBmatcher matcher(0.9, true);
 
     //rocky for no monocular
@@ -323,7 +323,7 @@ bool Tracking::TrackWithIMU(bool bMapUpdated)
     // And compute the IMU pre-integration for PoseOptimization
     PredictNavStateByIMU(bMapUpdated);
 
-    fill(mCurrentFrame.mvpMapPoints.begin(), mCurrentFrame.mvpMapPoints.end(), static_cast<MapPoint*>(NULL));
+    fill(mCurrentFrame.mvpMapPoints.begin(), mCurrentFrame.mvpMapPoints.end(), static_cast<MapPoint*>(nullptr));
 
     // Project points seen in previous frame
     int th;
@@ -336,7 +336,7 @@ bool Tracking::TrackWithIMU(bool bMapUpdated)
     // If few matches, uses a wider window search
     if (nmatches < 20)
     {
-        fill(mCurrentFrame.mvpMapPoints.begin(), mCurrentFrame.mvpMapPoints.end(), static_cast<MapPoint*>(NULL));
+        fill(mCurrentFrame.mvpMapPoints.begin(), mCurrentFrame.mvpMapPoints.end(), static_cast<MapPoint*>(nullptr));
         nmatches = matcher.SearchByProjection(mCurrentFrame, mLastFrame, 2 * th, mSensor == System::MONOCULAR);
     }
 
@@ -491,7 +491,7 @@ cv::Mat Tracking::GrabImageStereoVIO(const cv::Mat &imRectLeft, const cv::Mat &i
 Tracking::Tracking(System *pSys, ORBVocabulary* pVoc, FrameDrawer *pFrameDrawer, MapDrawer *pMapDrawer,
                    Map *pMap, KeyFrameDatabase* pKFDB, const string &strSettingPath, const int sensor, ConfigParam* pParams):
     mState(NO_IMAGES_YET), mSensor(sensor), mbOnlyTracking(false), mbVO(false), mpORBVocabulary(pVoc),
-    mpKeyFrameDB(pKFDB), mpInitializer(static_cast<Initializer*>(NULL)), mpSystem(pSys),
+    mpKeyFrameDB(pKFDB), mpInitializer(static_cast<Initializer*>(nullptr)), mpSystem(pSys),
     mpFrameDrawer(pFrameDrawer), mpMapDrawer(pMapDrawer), mpMap(pMap), mnLastRelocFrameId(0)
 {
     mbCreateNewKFAfterReloc = false;
@@ -536,18 +536,18 @@ Tracking::Tracking(System *pSys, ORBVocabulary* pVoc, FrameDrawer *pFrameDrawer,
     mMinFrames = 0;
     mMaxFrames = fps;
 
-    cout << endl << "Camera Parameters: " << endl;
-    cout << "- fx: " << fx << endl;
-    cout << "- fy: " << fy << endl;
-    cout << "- cx: " << cx << endl;
-    cout << "- cy: " << cy << endl;
-    cout << "- k1: " << DistCoef.at<float>(0) << endl;
-    cout << "- k2: " << DistCoef.at<float>(1) << endl;
-    if (DistCoef.rows == 5)
-        cout << "- k3: " << DistCoef.at<float>(4) << endl;
-    cout << "- p1: " << DistCoef.at<float>(2) << endl;
-    cout << "- p2: " << DistCoef.at<float>(3) << endl;
-    cout << "- fps: " << fps << endl;
+//    cout << endl << "Camera Parameters: " << endl;
+//    cout << "- fx: " << fx << endl;
+//    cout << "- fy: " << fy << endl;
+//    cout << "- cx: " << cx << endl;
+//    cout << "- cy: " << cy << endl;
+//    cout << "- k1: " << DistCoef.at<float>(0) << endl;
+//    cout << "- k2: " << DistCoef.at<float>(1) << endl;
+//    if (DistCoef.rows == 5)
+//        cout << "- k3: " << DistCoef.at<float>(4) << endl;
+//    cout << "- p1: " << DistCoef.at<float>(2) << endl;
+//    cout << "- p2: " << DistCoef.at<float>(3) << endl;
+//    cout << "- fps: " << fps << endl;
 
 
     int nRGB = fSettings["Camera.RGB"];
@@ -574,12 +574,12 @@ Tracking::Tracking(System *pSys, ORBVocabulary* pVoc, FrameDrawer *pFrameDrawer,
     if (sensor == System::MONOCULAR)
         mpIniORBextractor = new ORBextractor(2 * nFeatures, fScaleFactor, nLevels, fIniThFAST, fMinThFAST);
 
-    cout << endl  << "ORB Extractor Parameters: " << endl;
-    cout << "- Number of Features: " << nFeatures << endl;
-    cout << "- Scale Levels: " << nLevels << endl;
-    cout << "- Scale Factor: " << fScaleFactor << endl;
-    cout << "- Initial Fast Threshold: " << fIniThFAST << endl;
-    cout << "- Minimum Fast Threshold: " << fMinThFAST << endl;
+//    cout << endl  << "ORB Extractor Parameters: " << endl;
+//    cout << "- Number of Features: " << nFeatures << endl;
+//    cout << "- Scale Levels: " << nLevels << endl;
+//    cout << "- Scale Factor: " << fScaleFactor << endl;
+//    cout << "- Initial Fast Threshold: " << fIniThFAST << endl;
+//    cout << "- Minimum Fast Threshold: " << fMinThFAST << endl;
 
     if (sensor == System::STEREO || sensor == System::RGBD)
     {
@@ -989,7 +989,7 @@ void Tracking::Track()
                     if (pMP->Observations() < 1)
                     {
                         mCurrentFrame.mvbOutlier[i] = false;
-                        mCurrentFrame.mvpMapPoints[i] = static_cast<MapPoint*>(NULL);
+                        mCurrentFrame.mvpMapPoints[i] = static_cast<MapPoint*>(nullptr);
                     }
             }
 
@@ -1015,7 +1015,7 @@ void Tracking::Track()
             for (int i = 0; i < mCurrentFrame.N; i++)
             {
                 if (mCurrentFrame.mvpMapPoints[i] && mCurrentFrame.mvbOutlier[i])
-                    mCurrentFrame.mvpMapPoints[i] = static_cast<MapPoint*>(NULL);
+                    mCurrentFrame.mvpMapPoints[i] = static_cast<MapPoint*>(nullptr);
             }
 
             // Clear First-Init flag
@@ -1074,7 +1074,7 @@ void Tracking::StereoInitialization()
         // Create KeyFrame
         vector<IMUData> vimu1;
         vimu1.push_back(mvIMUSinceLastKF.back());
-        KeyFrame* pKFini = new KeyFrame(mCurrentFrame, mpMap, mpKeyFrameDB, vimu1, NULL);
+        KeyFrame* pKFini = new KeyFrame(mCurrentFrame, mpMap, mpKeyFrameDB, vimu1, nullptr);
         pKFini->ComputePreInt();
         // Clear IMUData buffer
         mvIMUSinceLastKF.clear();
@@ -1215,7 +1215,7 @@ void Tracking::CreateInitialMapMonocular()
     }
 
     // Create KeyFrames
-    KeyFrame* pKFini = new KeyFrame(mInitialFrame, mpMap, mpKeyFrameDB, vimu1, NULL);
+    KeyFrame* pKFini = new KeyFrame(mInitialFrame, mpMap, mpKeyFrameDB, vimu1, nullptr);
     pKFini->ComputePreInt();
     KeyFrame* pKFcur = new KeyFrame(mCurrentFrame, mpMap, mpKeyFrameDB, vimu2, pKFini);
     pKFcur->ComputePreInt();
@@ -1366,7 +1366,7 @@ bool Tracking::TrackReferenceKeyFrame()
             {
                 MapPoint* pMP = mCurrentFrame.mvpMapPoints[i];
 
-                mCurrentFrame.mvpMapPoints[i] = static_cast<MapPoint*>(NULL);
+                mCurrentFrame.mvpMapPoints[i] = static_cast<MapPoint*>(nullptr);
                 mCurrentFrame.mvbOutlier[i] = false;
                 pMP->mbTrackInView = false;
                 pMP->mnLastFrameSeen = mCurrentFrame.mnId;
@@ -1448,7 +1448,7 @@ void Tracking::UpdateLastFrame()
 
 bool Tracking::TrackWithMotionModel()
 {
-    cout << "track with motion model" << endl;
+//    cout << "tracking with motion model" << endl;
     ORBmatcher matcher(0.9, true);
 
     // Update last frame pose according to its reference keyframe
@@ -1457,7 +1457,7 @@ bool Tracking::TrackWithMotionModel()
 
     mCurrentFrame.SetPose(mVelocity * mLastFrame.mTcw);
 
-    fill(mCurrentFrame.mvpMapPoints.begin(), mCurrentFrame.mvpMapPoints.end(), static_cast<MapPoint*>(NULL));
+    fill(mCurrentFrame.mvpMapPoints.begin(), mCurrentFrame.mvpMapPoints.end(), static_cast<MapPoint*>(nullptr));
 
     // Project points seen in previous frame
     int th;
@@ -1470,7 +1470,7 @@ bool Tracking::TrackWithMotionModel()
     // If few matches, uses a wider window search
     if (nmatches < 20)
     {
-        fill(mCurrentFrame.mvpMapPoints.begin(), mCurrentFrame.mvpMapPoints.end(), static_cast<MapPoint*>(NULL));
+        fill(mCurrentFrame.mvpMapPoints.begin(), mCurrentFrame.mvpMapPoints.end(), static_cast<MapPoint*>(nullptr));
         nmatches = matcher.SearchByProjection(mCurrentFrame, mLastFrame, 2 * th, mSensor == System::MONOCULAR);
     }
 
@@ -1490,7 +1490,7 @@ bool Tracking::TrackWithMotionModel()
             {
                 MapPoint* pMP = mCurrentFrame.mvpMapPoints[i];
 
-                mCurrentFrame.mvpMapPoints[i] = static_cast<MapPoint*>(NULL);
+                mCurrentFrame.mvpMapPoints[i] = static_cast<MapPoint*>(nullptr);
                 mCurrentFrame.mvbOutlier[i] = false;
                 pMP->mbTrackInView = false;
                 pMP->mnLastFrameSeen = mCurrentFrame.mnId;
@@ -1845,7 +1845,7 @@ void Tracking::UpdateLocalKeyFrames()
             }
             else
             {
-                mCurrentFrame.mvpMapPoints[i] = NULL;
+                mCurrentFrame.mvpMapPoints[i] = nullptr;
             }
         }
     }
@@ -1854,7 +1854,7 @@ void Tracking::UpdateLocalKeyFrames()
         return;
 
     int max = 0;
-    KeyFrame* pKFmax = static_cast<KeyFrame*>(NULL);
+    KeyFrame* pKFmax = static_cast<KeyFrame*>(nullptr);
 
     mvpLocalKeyFrames.clear();
     mvpLocalKeyFrames.reserve(3 * keyframeCounter.size());
@@ -2055,7 +2055,7 @@ bool Tracking::Relocalization()
                         sFound.insert(vvpMapPointMatches[i][j]);
                     }
                     else
-                        mCurrentFrame.mvpMapPoints[j] = NULL;
+                        mCurrentFrame.mvpMapPoints[j] = nullptr;
                 }
 
                 int nGood = Optimizer::PoseOptimization(&mCurrentFrame);
@@ -2065,7 +2065,7 @@ bool Tracking::Relocalization()
 
                 for (int io = 0; io < mCurrentFrame.N; io++)
                     if (mCurrentFrame.mvbOutlier[io])
-                        mCurrentFrame.mvpMapPoints[io] = static_cast<MapPoint*>(NULL);
+                        mCurrentFrame.mvpMapPoints[io] = static_cast<MapPoint*>(nullptr);
 
                 // If few inliers, search by projection in a coarse window and optimize again
                 if (nGood < 50)
@@ -2093,7 +2093,7 @@ bool Tracking::Relocalization()
 
                                 for (int io = 0; io < mCurrentFrame.N; io++)
                                     if (mCurrentFrame.mvbOutlier[io])
-                                        mCurrentFrame.mvpMapPoints[io] = NULL;
+                                        mCurrentFrame.mvpMapPoints[io] = nullptr;
                             }
                         }
                     }

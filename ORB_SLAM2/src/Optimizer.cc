@@ -112,7 +112,7 @@ void Optimizer::GlobalBundleAdjustmentNavState(Map* pMap, const cv::Mat& gw, int
         KeyFrame* pKF0 = pKF1->GetPrevKeyFrame();
         if (!pKF0)
         {
-            if (pKF1->mnId != 0) cerr << "Previous KeyFrame is NULL?" << endl; //Test log
+            if (pKF1->mnId != 0) cerr << "Previous KeyFrame is nullptr?" << endl; //Test log
             continue;
         }
 
@@ -1159,7 +1159,7 @@ void Optimizer::LocalBundleAdjustmentNavState(KeyFrame *pCurKF, const std::list<
             cerr << "pKFPrevLocal is Bad?" << endl;
     }
     // Test log
-    else {cerr << "pKFPrevLocal is NULL?" << endl;}
+    else {cerr << "pKFPrevLocal is nullptr?" << endl;}
     // Covisible KeyFrames
     for (auto lit = lLocalMapPoints.begin(), lend = lLocalMapPoints.end(); lit != lend; lit++)
     {
@@ -3222,11 +3222,11 @@ int Optimizer::OptimizeSim3(KeyFrame *pKF1, KeyFrame *pKF2, vector<MapPoint *> &
         if (e12->chi2() > th2 || e21->chi2() > th2)
         {
             size_t idx = vnIndexEdge[i];
-            vpMatches1[idx] = static_cast<MapPoint*>(NULL);
+            vpMatches1[idx] = static_cast<MapPoint*>(nullptr);
             optimizer.removeEdge(e12);
             optimizer.removeEdge(e21);
-            vpEdges12[i] = static_cast<g2o::EdgeSim3ProjectXYZ*>(NULL);
-            vpEdges21[i] = static_cast<g2o::EdgeInverseSim3ProjectXYZ*>(NULL);
+            vpEdges12[i] = static_cast<g2o::EdgeSim3ProjectXYZ*>(nullptr);
+            vpEdges21[i] = static_cast<g2o::EdgeInverseSim3ProjectXYZ*>(nullptr);
             nBad++;
         }
     }
@@ -3256,7 +3256,7 @@ int Optimizer::OptimizeSim3(KeyFrame *pKF1, KeyFrame *pKF2, vector<MapPoint *> &
         if (e12->chi2() > th2 || e21->chi2() > th2)
         {
             size_t idx = vnIndexEdge[i];
-            vpMatches1[idx] = static_cast<MapPoint*>(NULL);
+            vpMatches1[idx] = static_cast<MapPoint*>(nullptr);
         }
         else
             nIn++;

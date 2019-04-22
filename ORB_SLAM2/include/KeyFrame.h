@@ -47,23 +47,23 @@ class KeyFrame
 public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-    KeyFrame(Frame &F, Map* pMap, KeyFrameDatabase* pKFDB, std::vector<IMUData> vIMUData, KeyFrame* pLastKF=NULL);
-    KeyFrame* GetPrevKeyFrame(void);
-    KeyFrame* GetNextKeyFrame(void);
+    KeyFrame(Frame &F, Map* pMap, KeyFrameDatabase* pKFDB, std::vector<IMUData> vIMUData, KeyFrame* pLastKF=nullptr);
+    KeyFrame* GetPrevKeyFrame();
+    KeyFrame* GetNextKeyFrame();
     void SetPrevKeyFrame(KeyFrame* pKF);
     void SetNextKeyFrame(KeyFrame* pKF);
 
-    std::vector<IMUData> GetVectorIMUData(void);
+    std::vector<IMUData> GetVectorIMUData();
     void AppendIMUDataToFront(KeyFrame* pPrevKF);
-    void ComputePreInt(void);
+    void ComputePreInt();
 
-    const IMUPreintegrator & GetIMUPreInt(void);
+    const IMUPreintegrator & GetIMUPreInt();
 
     void UpdateNavStatePVRFromTcw(const cv::Mat &Tcw,const cv::Mat &Tbc);
     void UpdatePoseFromNS(const cv::Mat &Tbc);
     void UpdateNavState(const IMUPreintegrator& imupreint, const Vector3d& gw);
     void SetNavState(const NavState& ns);
-    const NavState& GetNavState(void);
+    const NavState& GetNavState();
     void SetNavStateVel(const Vector3d &vel);
     void SetNavStatePos(const Vector3d &pos);
     void SetNavStateRot(const Matrix3d &rot);

@@ -60,7 +60,7 @@ int gettimeofday(struct timeval *tv, struct timezone *tz)
   unsigned __int64 tmpres = 0;
   static int tzflag = 0;
  
-  if (NULL != tv)
+  if (nullptr != tv)
   {
     GetSystemTimeAsFileTime(&ft);
  
@@ -84,7 +84,7 @@ int gettimeofday(struct timeval *tv, struct timezone *tz)
     tv->tv_usec = (long)(tmpres % 1000000UL);
   }
  
-  if (NULL != tz) {
+  if (nullptr != tz) {
     if (!tzflag) {
       _tzset();
       tzflag++;

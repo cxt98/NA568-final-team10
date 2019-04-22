@@ -301,7 +301,7 @@ class LinearSolverCholmod : public LinearSolverCCS<MatrixType>
         auxCholmodSparse.dtype = CHOLMOD_DOUBLE;
         auxCholmodSparse.sorted = 1;
         auxCholmodSparse.packed = 1;
-        int amdStatus = cholmod_amd(&auxCholmodSparse, NULL, 0, _blockPermutation.data(), &_cholmodCommon);
+        int amdStatus = cholmod_amd(&auxCholmodSparse, nullptr, 0, _blockPermutation.data(), &_cholmodCommon);
         if (! amdStatus) {
           return;
         }
@@ -324,7 +324,7 @@ class LinearSolverCholmod : public LinearSolverCCS<MatrixType>
         // apply the ordering
         _cholmodCommon.nmethods = 1 ;
         _cholmodCommon.method[0].ordering = CHOLMOD_GIVEN;
-        _cholmodFactor = cholmod_analyze_p(_cholmodSparse, _scalarPermutation.data(), NULL, 0, &_cholmodCommon);
+        _cholmodFactor = cholmod_analyze_p(_cholmodSparse, _scalarPermutation.data(), nullptr, 0, &_cholmodCommon);
 
       }
       G2OBatchStatistics* globalStats = G2OBatchStatistics::globalStats();

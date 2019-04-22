@@ -78,7 +78,7 @@ class PnPsolver {
 
   // Functions from the original EPnP code
   void set_maximum_number_of_correspondences(const int n);
-  void reset_correspondences(void);
+  void reset_correspondences();
   void add_correspondence(const double X, const double Y, const double Z,
               const double u, const double v);
 
@@ -91,13 +91,13 @@ class PnPsolver {
   void print_pose(const double R[3][3], const double t[3]);
   double reprojection_error(const double R[3][3], const double t[3]);
 
-  void choose_control_points(void);
-  void compute_barycentric_coordinates(void);
+  void choose_control_points();
+  void compute_barycentric_coordinates();
   void fill_M(CvMat * M, const int row, const double * alphas, const double u, const double v);
   void compute_ccs(const double * betas, const double * ut);
-  void compute_pcs(void);
+  void compute_pcs();
 
-  void solve_for_sign(void);
+  void solve_for_sign();
 
   void find_betas_approx_1(const CvMat * L_6x10, const CvMat * Rho, double * betas);
   void find_betas_approx_2(const CvMat * L_6x10, const CvMat * Rho, double * betas);
