@@ -1,6 +1,8 @@
 # ORB-SLAM2 with IMU Preintegration
 An stereo version implementation of [Visual Inertial ORBSLAM](https://arxiv.org/abs/1610.05949) based on [ORB-SLAM2](https://github.com/raulmur/ORB_SLAM2). The IMU preintegration module refers to [LearnVIORB](https://github.com/jingpang/LearnVIORB).
 
+Tested on [EuRoc](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets) dataset. Currently, the code only supports [EuRoc](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets) dataset and cannot run in real-time.
+
 <a href="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/EuRoC_V1_02_(1).png" target="_blank"><img src="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/EuRoC_V1_02_(1).png" 
 alt="ORB-SLAM2" width="720" height="540" border="10" /></a>
 
