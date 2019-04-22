@@ -1,7 +1,7 @@
 # ORB-SLAM2 with IMU Preintegration
 An stereo version implementation of [Visual Inertial ORBSLAM](https://arxiv.org/abs/1610.05949) based on [ORB-SLAM2](https://github.com/raulmur/ORB_SLAM2). The IMU preintegration module refers to [LearnVIORB](https://github.com/jingpang/LearnVIORB).
 
-Tested on [EuRoc](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets) dataset. Currently, the code only supports [EuRoc](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets) dataset and cannot run in real-time.
+Tested on [EuRoc](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets) dataset (Vicon Room 1 02). Currently, the code only supports [EuRoc](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets) dataset and cannot run in real-time.
 
 <a href="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/EuRoC_V1_02_(1).png" target="_blank"><img src="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/EuRoC_V1_02_(1).png" 
 alt="ORB-SLAM2" width="720" height="540" border="10" /></a>
@@ -10,6 +10,37 @@ alt="ORB-SLAM2" width="720" height="540" border="10" /></a>
 alt="ORB-SLAM2" width="720" height="540" border="10" /></a>
 
 # Get Started
+
+## 1. Prerequisites
+
+### C++11 or C++0x Compiler
+We use the new thread and chrono functionalities of C++11.
+
+### Pangolin
+We use [Pangolin](https://github.com/stevenlovegrove/Pangolin) for visualization and user interface. Dowload and install instructions can be found at: https://github.com/stevenlovegrove/Pangolin.
+
+### OpenCV
+We use [OpenCV](http://opencv.org) to manipulate images and features. Dowload and install instructions can be found at: http://opencv.org. **Required at leat 2.4.3. Tested with OpenCV 2.4.11 and OpenCV 3.2**.
+
+### Eigen3
+Required by g2o (see below). Download and install instructions can be found at: http://eigen.tuxfamily.org. **Required at least 3.1.0**.
+
+## 2. Building ORB-SLAM2 library and example
+
+## 3. Stereo Example
+
+### EuRoC Dataset
+
+1. Download a sequence (ASL format) from http://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets
+
+2. Execute the following first command for V1 and V2 sequences, or the second command for MH sequences. Change PATH_TO_SEQUENCE_FOLDER and SEQUENCE according to the sequence you want to run.
+```
+./Examples/Stereo/stereo_euroc Vocabulary/ORBvoc.txt Examples/Stereo/EuRoC.yaml PATH_TO_SEQUENCE/mav0/cam0/data PATH_TO_SEQUENCE/mav0/cam1/data Examples/Stereo/EuRoC_TimeStamps/SEQUENCE.txt
+```
+```
+./Examples/Stereo/stereo_euroc Vocabulary/ORBvoc.txt Examples/Stereo/EuRoC.yaml PATH_TO_SEQUENCE/cam0/data PATH_TO_SEQUENCE/cam1/data Examples/Stereo/EuRoC_TimeStamps/SEQUENCE.txt
+```
+*****
 
 Below is the primary README of ORBSLAM2.
 
