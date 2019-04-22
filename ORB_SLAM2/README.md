@@ -1,7 +1,7 @@
 # ORB-SLAM2 with IMU Preintegration
 An stereo version implementation of [Visual Inertial ORBSLAM](https://arxiv.org/abs/1610.05949) based on [ORB-SLAM2](https://github.com/raulmur/ORB_SLAM2). The IMU preintegration module refers to [LearnVIORB](https://github.com/jingpang/LearnVIORB).
 
-Tested on [EuRoc](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets) dataset (Vicon Room 1 02). Currently, the code only supports [EuRoc](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets) dataset and cannot run in real-time.
+**Tested on [EuRoc](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets) dataset (Vicon Room 1 02). Currently, the code only supports [EuRoc](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets) dataset and cannot run in real-time.**
 
 <a href="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/V1_02_result.png" target="_blank"><img src="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/V1_02_result.png" 
 alt="ORB-SLAM2" width="720" height="540" border="0" /></a>
@@ -38,9 +38,9 @@ Required by g2o (see below). Download and install instructions can be found at: 
 
 2. Execute the following command for V1 and V2 sequences. Change PATH_TO_SEQUENCE_FOLDER and SEQUENCE according to the sequence you want to run.
 ```
-./Examples/Stereo/stereo_euroc Vocabulary/ORBvoc.txt Examples/Stereo/EuRoC.yaml PATH_TO_SEQUENCE/mav0/cam0/data PATH_TO_SEQUENCE/mav0/cam1/data Examples/Stereo/EuRoC_TimeStamps/SEQUENCE.txt
+./Examples/Stereo/stereo_euroc_vio Vocabulary/ORBvoc.bin Examples/Stereo/EuRoC_Stereo.yaml PATH_TO_SEQUENCE/mav0/imu0/data.csv PATH_TO_SEQUENCE/mav0/cam0/data.csv PATH_TO_SEQUENCE/mav0/cam0/data PATH_TO_SEQUENCE/mav0/cam1/data OUTPUT_FILE_NAME
 ```
-Or modify `run_stereo_euroc_imu.sh` and execute:
+   Or modify `run_stereo_euroc_imu.sh` and execute:
 ```
 ./run_stereo_euroc_imu.sh
 ```
