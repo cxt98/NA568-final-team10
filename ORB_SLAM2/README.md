@@ -3,11 +3,14 @@ An stereo version implementation of [Visual Inertial ORBSLAM](https://arxiv.org/
 
 Tested on [EuRoc](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets) dataset (Vicon Room 1 02). Currently, the code only supports [EuRoc](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets) dataset and cannot run in real-time.
 
+<a href="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/V1_02_result.png" target="_blank"><img src="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/V1_02_result.png" 
+alt="ORB-SLAM2" width="720" height="540" border="0" /></a>
+
 <a href="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/EuRoC_V1_02_(1).png" target="_blank"><img src="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/EuRoC_V1_02_(1).png" 
-alt="ORB-SLAM2" width="720" height="540" border="10" /></a>
+alt="ORB-SLAM2" width="720" height="540" border="0" /></a>
 
 <a href="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/EuRoC_V1_02_(2).png" target="_blank"><img src="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/EuRoC_V1_02_(2).png" 
-alt="ORB-SLAM2" width="720" height="540" border="10" /></a>
+alt="ORB-SLAM2" width="720" height="540" border="0" /></a>
 
 # Get Started
 
@@ -33,13 +36,15 @@ Required by g2o (see below). Download and install instructions can be found at: 
 
 1. Download a sequence (ASL format) from http://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets
 
-2. Execute the following first command for V1 and V2 sequences, or the second command for MH sequences. Change PATH_TO_SEQUENCE_FOLDER and SEQUENCE according to the sequence you want to run.
+2. Execute the following command for V1 and V2 sequences. Change PATH_TO_SEQUENCE_FOLDER and SEQUENCE according to the sequence you want to run.
 ```
 ./Examples/Stereo/stereo_euroc Vocabulary/ORBvoc.txt Examples/Stereo/EuRoC.yaml PATH_TO_SEQUENCE/mav0/cam0/data PATH_TO_SEQUENCE/mav0/cam1/data Examples/Stereo/EuRoC_TimeStamps/SEQUENCE.txt
 ```
+Or modify `run_stereo_euroc_imu.sh` and execute:
 ```
-./Examples/Stereo/stereo_euroc Vocabulary/ORBvoc.txt Examples/Stereo/EuRoC.yaml PATH_TO_SEQUENCE/cam0/data PATH_TO_SEQUENCE/cam1/data Examples/Stereo/EuRoC_TimeStamps/SEQUENCE.txt
+./run_stereo_euroc_imu.sh
 ```
+
 *****
 
 Below is the primary README of ORBSLAM2.
