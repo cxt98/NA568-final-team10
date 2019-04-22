@@ -29,6 +29,21 @@ We use [OpenCV](http://opencv.org) to manipulate images and features. Dowload an
 Required by g2o (see below). Download and install instructions can be found at: http://eigen.tuxfamily.org. **Required at least 3.1.0**.
 
 ## 2. Building ORB-SLAM2 library and example
+Clone the repository:
+
+```
+git clone git@github.com:cxt98/NA568-final-team10.git
+```
+
+We provide a script `build.sh` to build the *Thirdparty* libraries and *ORB-SLAM2*. Please make sure you have installed all required dependencies (see section 1). Execute:
+
+```
+cd NA568-final-team10/ORB_SLAM2
+chmod +x build.sh
+./build.sh
+```
+
+This will create **libORB_SLAM2.so**  at *lib* folder and the executables **stereo_euroc_vio** in *Examples* folder.
 
 ## 3. Stereo Example
 
@@ -36,11 +51,14 @@ Required by g2o (see below). Download and install instructions can be found at: 
 
 1. Download a sequence (ASL format) from http://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets
 
-2. Execute the following command for V1 and V2 sequences. Change PATH_TO_SEQUENCE_FOLDER and SEQUENCE according to the sequence you want to run.
+2. Execute the following command for V1 and V2 sequences. Change PATH_TO_SEQUENCE_FOLDER according to the sequence you want to run and change OUTPUT_FILE_NAME.
+
 ```
-./Examples/Stereo/stereo_euroc_vio Vocabulary/ORBvoc.bin Examples/Stereo/EuRoC_Stereo.yaml PATH_TO_SEQUENCE/mav0/imu0/data.csv PATH_TO_SEQUENCE/mav0/cam0/data.csv PATH_TO_SEQUENCE/mav0/cam0/data PATH_TO_SEQUENCE/mav0/cam1/data OUTPUT_FILE_NAME
+./Examples/Stereo/stereo_euroc_vio Vocabulary/ORBvoc.bin Examples/Stereo/EuRoC_Stereo.yaml PATH_TO_SEQUENCE_FOLDER/mav0/imu0/data.csv PATH_TO_SEQUENCE_FOLDER/mav0/cam0/data.csv PATH_TO_SEQUENCE_FOLDER/mav0/cam0/data PATH_TO_SEQUENCE_FOLDER/mav0/cam1/data OUTPUT_FILE_NAME
 ```
+
    Or modify `run_stereo_euroc_imu.sh` and execute:
+   
 ```
 ./run_stereo_euroc_imu.sh
 ```
