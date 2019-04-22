@@ -1,6 +1,12 @@
 # ORB-SLAM2 with IMU Preintegration
 An stereo version implementation of [Visual Inertial ORBSLAM](https://arxiv.org/abs/1610.05949) based on [ORB-SLAM2](https://github.com/raulmur/ORB_SLAM2). The IMU preintegration module refers to [LearnVIORB](https://github.com/jingpang/LearnVIORB).
 
+<a href="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/EuRoC_V1_02_(1).png" target="_blank"><img src="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/EuRoC_V1_02_(1).png" 
+alt="ORB-SLAM2" width="240" height="180" border="10" /></a>
+
+<a href="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/EuRoC_V1_02_(2).png" target="_blank"><img src="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/EuRoC_V1_02_(2).png" 
+alt="ORB-SLAM2" width="240" height="180" border="10" /></a>
+
 # Get Started
 
 Below is the primary README of ORBSLAM2.
