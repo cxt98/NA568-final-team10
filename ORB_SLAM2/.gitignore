@@ -25,3 +25,6 @@ lib/
 .idea/
 cmake-build-debug
 !Vocabulary/ORBvoc.txt.tar.gz
+!MiniSamples1.tar.gz
+!MiniSamples2.tar.gz
+MiniSamples/*
