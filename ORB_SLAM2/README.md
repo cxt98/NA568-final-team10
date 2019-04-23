@@ -49,10 +49,11 @@ This will create **libORB_SLAM2.so**  at *lib* folder and the executables **ster
 
 ### Mini Samples
 
-1. Uncompress MiniSamples.tar.gz
+1. Uncompress `MiniSamples1.tar.gz` and `MiniSamples2.tar.gz`
 
 ```
-tar -zxvf MiniSamples.tar.gz
+tar -zxvf MiniSamples1.tar.gz
+tar -zxvf MiniSamples2.tar.gz
 ```
 
 2. Modify `Examples/Stereo/EuRoC_Stereo.yaml`
