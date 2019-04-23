@@ -5,7 +5,7 @@
 #--------------------------------------------------------------------------------------------
 
 # Path to save results
-test.InitVIOTmpPath: "/home/deyangd/NA568-final-team10/ORB_SLAM2/result/"
+test.InitVIOTmpPath: "/home/deyangd/git1/NA568-final-team10/ORB_SLAM2/result/"
 
 # camera to body/inertial frame transformation
 Camera.Tbc:

@@ -309,7 +309,7 @@ void Tracking::PredictNavStateByIMU(bool bMapUpdated)
 
 bool Tracking::TrackWithIMU(bool bMapUpdated)
 {
-//    cout << "tracking with IMU" << endl;
+    cout << "tracking with IMU" << endl;
     ORBmatcher matcher(0.9, true);
 
     //rocky for no monocular
@@ -1448,7 +1448,7 @@ void Tracking::UpdateLastFrame()
 
 bool Tracking::TrackWithMotionModel()
 {
-//    cout << "tracking with motion model" << endl;
+    cout << "tracking with motion model" << endl;
     ORBmatcher matcher(0.9, true);
 
     // Update last frame pose according to its reference keyframe

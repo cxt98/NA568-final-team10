@@ -3,7 +3,7 @@ An stereo version implementation of [Visual Inertial ORBSLAM](https://arxiv.org/
 
 **Tested on [EuRoc](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets) dataset (Vicon Room 1 02). Currently, the code only supports [EuRoc](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets) dataset and cannot run in real-time.**
 
-<a href="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/V1_02_result.png" target="_blank"><img src="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/V1_02_result.png" 
+<a href="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/EuRoC_V1_02_medium.png" target="_blank"><img src="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/EuRoC_V1_02_medium.png" 
 alt="ORB-SLAM2" width="720" height="540" border="0" /></a>
 
 <a href="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/EuRoC_V1_02_(1).png" target="_blank"><img src="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/EuRoC_V1_02_(1).png" 
@@ -56,7 +56,7 @@ tar -zxvf MiniSamples1.tar.gz
 tar -zxvf MiniSamples2.tar.gz
 ```
 
-2. Modify `Examples/Stereo/EuRoC_Stereo.yaml`
+2. In `Examples/Stereo/EuRoC_Stereo.yaml`, modify the save path for results `test.InitVIOTmpPath`
 
 3. Execute the following command
 
@@ -73,7 +73,7 @@ tar -zxvf MiniSamples2.tar.gz
 
 1. Download a sequence (ASL format) from http://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets
 
-2. Modify `Examples/Stereo/EuRoC_Stereo.yaml`
+2. In `Examples/Stereo/EuRoC_Stereo.yaml`, modify the save path for results `test.InitVIOTmpPath`
 
 3. Execute the following command for V1 and V2 sequences. Change PATH_TO_SEQUENCE_FOLDER according to the sequence you want to run and change OUTPUT_FILE_NAME.
 

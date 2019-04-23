@@ -152,6 +152,9 @@ int main(int argc, char **argv)
     cout << "median tracking time: " << vTimesTrack[nImages / 2] << endl;
     cout << "mean tracking time: " << totaltime / nImages << endl;
 
+    cout << "Press any key to shutdown" << endl;
+    cin.get();
+
     // Stop all threads
     SLAM.Shutdown();
     return 0;

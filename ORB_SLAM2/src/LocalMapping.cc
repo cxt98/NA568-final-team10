@@ -86,34 +86,6 @@ bool LocalMapping::TryInitStereoVIO()
     if (mpMap->KeyFramesInMap() <= mnLocalWindowSize) //NOTE  mnLocalWindowSize
         return false;
 
-    static bool fopened = false;
-    static ofstream fgw, fscale, fbiasa, fcondnum, ftime, fbiasg;
-    if (!fopened)
-    {
-        // Need to modify this to correct path
-        string tmpfilepath = ConfigParam::getTmpFilePath();
-        fgw.open(tmpfilepath + "gw.txt");
-        fscale.open(tmpfilepath + "scale.txt");
-        fbiasa.open(tmpfilepath + "biasa.txt");
-        fcondnum.open(tmpfilepath + "condnum.txt");
-        ftime.open(tmpfilepath + "computetime.txt");
-        fbiasg.open(tmpfilepath + "biasg.txt");
-        if (fgw.is_open() && fscale.is_open() && fbiasa.is_open() &&
-                fcondnum.is_open() && ftime.is_open() && fbiasg.is_open())
-            fopened = true;
-        else
-        {
-            cerr << "file open error in TryInitStereoVIO" << endl;
-            fopened = false;
-        }
-        fgw << std::fixed << std::setprecision(6);
-        fscale << std::fixed << std::setprecision(6);
-        fbiasa << std::fixed << std::setprecision(6);
-        fcondnum << std::fixed << std::setprecision(6);
-        ftime << std::fixed << std::setprecision(6);
-        fbiasg << std::fixed << std::setprecision(6);
-    }
-
     // Extrinsics
     cv::Mat Tbc = ConfigParam::GetMatTbc();
     cv::Mat Rbc = Tbc.rowRange(0, 3).colRange(0, 3);
@@ -319,28 +291,6 @@ bool LocalMapping::TryInitStereoVIO()
     // Rwi_ = Rwi*exp(dtheta)
     Eigen::Matrix3d Rwieig_ = RWIeig * Sophus::SO3::exp(dthetaeig).matrix();
     cv::Mat Rwi_ = Converter::toCvMat(Rwieig_);
-
-
-//    // Debug log
-//    {
-//        cv::Mat gwbefore = Rwi * GI;
-//        cv::Mat gwafter = Rwi_ * GI;
-//        cout << "Time: " << mpCurrentKeyFrame->mTimeStamp - mnStartTime << ", sstar: " << sstar << ", s: " << s_ << endl;
-//
-//        fgw << mpCurrentKeyFrame->mTimeStamp << " "
-//            << gwafter.at<float>(0) << " " << gwafter.at<float>(1) << " " << gwafter.at<float>(2) << " "
-//            << gwbefore.at<float>(0) << " " << gwbefore.at<float>(1) << " " << gwbefore.at<float>(2) << " "
-//            << endl;
-//        fscale << mpCurrentKeyFrame->mTimeStamp << " "
-//               << s_ << " " << sstar << " " << endl;
-//        fbiasa << mpCurrentKeyFrame->mTimeStamp << " "
-//               << dbiasa_.at<float>(0) << " " << dbiasa_.at<float>(1) << " " << dbiasa_.at<float>(2) << " " << endl;
-//        fcondnum << mpCurrentKeyFrame->mTimeStamp << " "
-//                 << w2.at<float>(0) << " " << w2.at<float>(1) << " " << w2.at<float>(2) << " " << w2.at<float>(3) << " "
-//                 << w2.at<float>(4) << " " << w2.at<float>(5) << " " << endl;
-//        fbiasg << mpCurrentKeyFrame->mTimeStamp << " "
-//               << bgest(0) << " " << bgest(1) << " " << bgest(2) << " " << endl;
-//    }
 
     bool bVIOInited = false;
     if (mbFirstTry)
