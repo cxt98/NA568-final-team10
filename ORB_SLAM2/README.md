@@ -69,19 +69,6 @@ tar -zxvf MiniSamples2.tar.gz
 ./run_stereo_mini_samples_imu.sh
 ```
 
-### Mini Samples
-
-1. Execute the following command
-
-```
-./Examples/Stereo/stereo_euroc_vio Vocabulary/ORBvoc.bin Examples/Stereo/EuRoC_Stereo.yaml MiniSamples/mav0/imu0/data.csv MiniSamples/mav0/cam0/data.csv MiniSamples/mav0/cam0/data MiniSamples/mav0/cam1/data mini_samples
-```
-
-   Or execute:
-```
-./run_stereo_mini_samples_imu.sh
-```
-
 ### EuRoC Dataset
 
 1. Download a sequence (ASL format) from http://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets
