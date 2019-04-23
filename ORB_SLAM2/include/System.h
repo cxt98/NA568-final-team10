@@ -22,10 +22,6 @@
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
-#include<string>
-#include<thread>
-#include<opencv2/core/core.hpp>
-
 #include "Tracking.h"
 #include "FrameDrawer.h"
 #include "MapDrawer.h"
@@ -36,6 +32,11 @@
 #include "ORBVocabulary.h"
 #include "Viewer.h"
 #include "IMU/IMUData.h"
+
+#include <string>
+#include <thread>
+
+#include <opencv2/core/core.hpp>
 
 namespace ORB_SLAM2
 {
@@ -114,10 +115,6 @@ public:
     // See format details at: http://www.cvlibs.net/datasets/kitti/eval_odometry.php
     void SaveTrajectoryKITTI(const string &filename);
 
-    // TODO: Save/Load functions
-    // SaveMap(const string &filename);
-    // LoadMap(const string &filename);
-
 private:
 
     // Input sensor
@@ -166,6 +163,6 @@ private:
     bool mbDeactivateLocalizationMode;
 };
 
-}// namespace ORB_SLAM2
+} // namespace ORB_SLAM2
 
 #endif // SYSTEM_H

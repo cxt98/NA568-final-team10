@@ -944,12 +944,12 @@ void Tracking::Track()
                     mbCreateNewKFAfterReloc = true;
 
                     //Debug log
-                    cout << "NavState recomputed." << endl;
-                    cout << "V:" << mCurrentFrame.GetNavState().Get_V().transpose() << endl;
-                    cout << "bg:" << mCurrentFrame.GetNavState().Get_BiasGyr().transpose() << endl;
-                    cout << "ba:" << mCurrentFrame.GetNavState().Get_BiasAcc().transpose() << endl;
-                    cout << "dbg:" << mCurrentFrame.GetNavState().Get_dBias_Gyr().transpose() << endl;
-                    cout << "dba:" << mCurrentFrame.GetNavState().Get_dBias_Acc().transpose() << endl;
+//                    cout << "NavState recomputed." << endl;
+//                    cout << "V:" << mCurrentFrame.GetNavState().Get_V().transpose() << endl;
+//                    cout << "bg:" << mCurrentFrame.GetNavState().Get_BiasGyr().transpose() << endl;
+//                    cout << "ba:" << mCurrentFrame.GetNavState().Get_BiasAcc().transpose() << endl;
+//                    cout << "dbg:" << mCurrentFrame.GetNavState().Get_dBias_Gyr().transpose() << endl;
+//                    cout << "dba:" << mCurrentFrame.GetNavState().Get_dBias_Acc().transpose() << endl;
                 }
             }
         }

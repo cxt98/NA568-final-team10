@@ -22,8 +22,6 @@
 #define KEYFRAME_H
 
 #include "MapPoint.h"
-#include "Thirdparty/DBoW2/DBoW2/BowVector.h"
-#include "Thirdparty/DBoW2/DBoW2/FeatureVector.h"
 #include "ORBVocabulary.h"
 #include "ORBextractor.h"
 #include "Frame.h"
@@ -31,6 +29,9 @@
 #include "IMU/IMUData.h"
 #include "IMU/NavState.h"
 #include "IMU/IMUPreintegrator.h"
+
+#include "Thirdparty/DBoW2/DBoW2/BowVector.h"
+#include "Thirdparty/DBoW2/DBoW2/FeatureVector.h"
 
 #include <mutex>
 

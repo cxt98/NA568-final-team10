@@ -41,7 +41,7 @@ class Map;
 class LocalMapping
 {
 public:
-    ConfigParam* mpParams;
+    ConfigParam *mpParams;
 
     // KeyFrames in Local Window, for Local BA
     // Insert in ProcessNewKeyFrame()

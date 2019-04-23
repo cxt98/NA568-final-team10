@@ -15,13 +15,9 @@ ConfigParam::ConfigParam(const std::string configfile)
 {
     cv::FileStorage fSettings(configfile, cv::FileStorage::READ);
 
-    std::cout<<std::endl<<std::endl<<"Parameters: "<<std::endl;
-
     fSettings["test.InitVIOTmpPath"] >> _tmpFilePath;
-    std::cout<<"save tmp file in "<<_tmpFilePath<<std::endl;
 
     _LocalWindowSize = fSettings["LocalMapping.LocalWindowSize"];
-    std::cout<<"local window size: "<<_LocalWindowSize<<std::endl;
 
     {
         cv::FileNode Tbc_ = fSettings["Camera.Tbc"];
@@ -47,9 +43,6 @@ ConfigParam::ConfigParam(const std::string configfile)
             for(int j=0;j<4;j++)
                 _MatTcb.at<float>(i,j) = _EigTcb(i,j);
 
-//        std::cout<<"Tbc inited:"<<std::endl<<_EigTbc<<std::endl<<_MatTbc<<std::endl;
-//        std::cout<<"Tcb inited:"<<std::endl<<_EigTcb<<std::endl<<_MatTcb<<std::endl;
-//        std::cout<<"Tbc*Tcb:"<<std::endl<<_EigTbc*_EigTcb<<std::endl<<_MatTbc*_MatTcb<<std::endl;
     }
 
     fSettings["LEFT.K"] >> _K_l;

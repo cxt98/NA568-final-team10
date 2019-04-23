@@ -48,8 +48,10 @@ public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     // Constructor for stereo orbvio
-    Frame(const cv::Mat &imLeft, const cv::Mat &imRight, const double &timeStamp, const std::vector<IMUData> &vimu, ORBextractor* extractorLeft, ORBextractor* extractorRight, ORBVocabulary* voc,
-          cv::Mat &K, cv::Mat &distCoef, const float &bf, const float &thDepth,KeyFrame *pLastKF=nullptr);
+    Frame(const cv::Mat &imLeft, const cv::Mat &imRight, const double &timeStamp,
+          const std::vector<IMUData> &vimu, ORBextractor* extractorLeft,
+          ORBextractor* extractorRight, ORBVocabulary* voc, cv::Mat &K,
+          cv::Mat &distCoef, const float &bf, const float &thDepth,KeyFrame *pLastKF=nullptr);
 
     void ComputeIMUPreIntSinceLastFrame(const Frame* pLastF, IMUPreintegrator& imupreint) const;
     void UpdatePoseFromNS(const cv::Mat &Tbc);

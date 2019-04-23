@@ -16,9 +16,6 @@ namespace g2o
 
 using namespace ORB_SLAM2;
 
-/**
- * @brief The VertexNavStatePVR class
- */
 class VertexNavStatePVR : public BaseVertex<9, NavState>
 {
 public:
@@ -304,7 +301,6 @@ public:
         return res;
     }
 
-    //
     virtual void linearizeOplus();
 
     void SetParams(const double& fx_, const double& fy_, const double& cx_, const double& cy_,
@@ -405,10 +401,6 @@ protected:
     Vector3d Pw;
 };
 
-
-/**
- * @brief The EdgeNavStatePrior class
- */
 class EdgeNavStatePriorPVRBias : public BaseBinaryEdge<15, NavState, VertexNavStatePVR, VertexNavStateBias>
 {
 public:
@@ -426,10 +418,6 @@ public:
 
 };
 
-/**
- * @brief The VertexNavState class
- * Vertex of tightly-coupled Visual-Inertial optimization
- */
 class VertexNavState : public BaseVertex<15, NavState>
 {
 public:
@@ -448,9 +436,6 @@ public:
     virtual void oplusImpl(const double* update_);
 };
 
-/**
- * @brief The EdgeNavStatePrior class
- */
 class EdgeNavStatePrior : public BaseUnaryEdge<15, NavState, VertexNavState>
 {
 public:
@@ -468,9 +453,6 @@ public:
 
 };
 
-/**
- * @brief The VertexGravityW class
- */
 class VertexGravityW : public BaseVertex<2, Vector3d>
 {
 public:
@@ -489,9 +471,6 @@ public:
     virtual void oplusImpl(const double *update_);
 };
 
-/**
- * @brief The EdgeNavStateGw class
- */
 class EdgeNavStateGw : public BaseMultiEdge<15, IMUPreintegrator>
 {
 public:

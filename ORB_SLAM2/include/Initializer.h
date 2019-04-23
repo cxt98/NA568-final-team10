@@ -20,9 +20,9 @@
 #ifndef INITIALIZER_H
 #define INITIALIZER_H
 
-#include<opencv2/opencv.hpp>
 #include "Frame.h"
 
+#include <opencv2/opencv.hpp>
 
 namespace ORB_SLAM2
 {

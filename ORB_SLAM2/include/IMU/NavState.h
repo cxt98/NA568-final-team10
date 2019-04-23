@@ -47,11 +47,6 @@ public:
     void IncSmallBias(Vector6d dBias);
 
 private:
-    /*
-     * Note:
-     * don't add pointer as member variable.
-     * operator = is used in g2o
-    */
 
     Vector3d _P;  // position
     Vector3d _V;  // velocity

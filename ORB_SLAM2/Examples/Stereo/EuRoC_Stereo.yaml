@@ -4,11 +4,10 @@
 # IMU Parameters.
 #--------------------------------------------------------------------------------------------
 
-# Modify test.InitVIOTmpPath and bagfile to the correct path
-# Path to save tmp files/results
+# Path to save results
 test.InitVIOTmpPath: "/home/deyangd/NA568-final-team10/ORB_SLAM2/result/"
 
-# camera-imu frame transformation, Pi = Tic * Pc
+# camera to body/inertial frame transformation
 Camera.Tbc:
  [0.0148655429818, -0.999880929698, 0.00414029679422, -0.0216401454975,
   0.999557249008, 0.0149672133247, 0.025715529948, -0.064676986768,

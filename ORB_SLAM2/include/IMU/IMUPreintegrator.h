@@ -146,7 +146,6 @@ public:
         return JacobianRInv(-w);
     }
 
-
     inline Quaterniond normalizeRotationQ(const Quaterniond& r)
     {
         Quaterniond _r(r);
@@ -164,11 +163,6 @@ public:
     }
 
 private:
-    /*
-     * NOTE:
-     * don't add pointer as member variable.
-     * operator = is used in g2o
-    */
 
     // delta measurements, position/velocity/rotation(matrix)
     Eigen::Vector3d _delta_P;    // P_k+1 = P_k + V_k*dt + R_k*a_k*dt*dt/2

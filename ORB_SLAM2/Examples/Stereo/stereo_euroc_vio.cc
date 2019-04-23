@@ -42,15 +42,9 @@
 
 using namespace std;
 
-typedef struct ImageData
-{
-    double timeStamp = 0.;
-    string imgName;
-} Image;
+void loadImage(char *imageFolderPath, std::vector<string> &vImageFilePath, std::vector<double> &vImageTime);
 
-void loadImage(char *imagePath, std::vector<Image> &iListData);
-
-void loadIMUData(char *imuPath, std::vector<ORB_SLAM2::IMUData> &vimuData);
+void loadIMUData(char *imuFolderPath, std::vector<ORB_SLAM2::IMUData> &vIMUData);
 
 int main(int argc, char **argv)
 {
@@ -64,7 +58,7 @@ int main(int argc, char **argv)
                 "Examples/Stereo/EuRoC_Stereo.yaml /home/deyangd/Downloads/EuRoC/V1_02/mav0/imu0/data.csv "
                 "/home/deyangd/Downloads/EuRoC/V1_02/mav0/cam0/data.csv "
                 "/home/deyangd/Downloads/EuRoC/V1_02/mav0/cam0/data "
-                "/home/deyangd/Downloads/EuRoC/V1_02/mav0/cam1/data V1_02_medium" << endl;
+                "/home/deyangd/Downloads/EuRoC/V1_02/mav0/cam1/data EuRoC_V1_02" << endl;
         return 1;
     }
 
@@ -73,56 +67,30 @@ int main(int argc, char **argv)
 
     ORB_SLAM2::ConfigParam config(argv[2]);
 
-    char *fullPath = new char[500];
-    char *fullPathR = new char[500];
-    memset(fullPath, 0, 500);
-    memset(fullPath, 0, 500);
-
     std::vector<ORB_SLAM2::IMUData> vAllIMUData;
-    std::vector<Image> iListData;
+    std::vector<string> vImagePath;
+    std::vector<double> vImageTime;
 
     loadIMUData(argv[3], vAllIMUData);
-    loadImage(argv[4], iListData);
-
-    double ImgFirstTime = iListData[0].timeStamp;
-    for (int j = 0; j < int(vAllIMUData.size()) - 1; j++)
-    {
-        if (ImgFirstTime - vAllIMUData[j]._time < 1 / 1e4)
-        {
-
-            vAllIMUData.erase(vAllIMUData.begin(), vAllIMUData.begin() + j);
-            break;
-        }
-    }
-
-    cout << std::setprecision(13) << "first Img time, first Imu timeStamp: " << iListData[0].timeStamp << ",     " << vAllIMUData[0]._time << endl;
-    if (iListData[0].timeStamp - vAllIMUData[0]._time > 1 / 1e4)
-        cerr << "the timestamp of first Imu is not equal to the first Img!" << endl;
+    loadImage(argv[4], vImagePath, vImageTime);
 
     // Vector for tracking time statistics
     vector<float> vTimesTrack;
-    vTimesTrack.resize(iListData.size());
+    int nImages = vImagePath.size();
+    vTimesTrack.resize(nImages);
 
-    int nImages = iListData.size();
     if (nImages < 1)
     {
         cerr << endl << "There is no enough images." << endl;
-    }
-
-    if (config._K_l.empty() || config._K_r.empty() || config._P_l.empty() || config._P_r.empty() || config._R_l.empty() || config._R_r.empty() || config._D_l.empty() || config._D_r.empty() ||
-            config._rows_l == 0 || config._rows_r == 0 || config._cols_l == 0 || config._cols_r == 0)
-    {
-        cerr << "ERROR: Calibration parameters to rectify stereo are missing!" << endl;
-        return -1;
     }
 
     cv::Mat M1l, M2l, M1r, M2r;
     cv::initUndistortRectifyMap(config._K_l, config._D_l, config._R_l, config._P_l.rowRange(0, 3).colRange(0, 3), cv::Size(config._cols_l, config._rows_l), CV_32F, M1l, M2l);
     cv::initUndistortRectifyMap(config._K_r, config._D_r, config._R_r, config._P_r.rowRange(0, 3).colRange(0, 3), cv::Size(config._cols_r, config._rows_r), CV_32F, M1r, M2r);
 
-    cv::Mat im, imR, imLeftRect, imRightRect;
+    cv::Mat imLeft, imRight, imLeftRect, imRightRect;
 
-    for (int j = 0; j < int(iListData.size()) - 1; j++)
+    for (int j = 0; j < nImages - 1; j++)
     {
         std::vector<ORB_SLAM2::IMUData> vimuData;
         for (unsigned int i = 0; i < 10; i++)
@@ -131,43 +99,31 @@ int main(int argc, char **argv)
             vimuData.push_back(vAllIMUData[index]);
         }
 
-        string temp = iListData[j + 1].imgName.substr(0, iListData[j].imgName.size() - 1);
+        string leftImgPath = argv[5] + vImagePath[j+1];
+        string rightImgPath = argv[6] + vImagePath[j+1];
 
-        sprintf(fullPath, "%s/%s", argv[5], temp.c_str());
-        sprintf(fullPathR, "%s/%s", argv[6], temp.c_str());
-        im = cv::imread(fullPath, 0);
-        imR = cv::imread(fullPathR, 0);
+        imLeft = cv::imread(leftImgPath, 0);
+        imRight = cv::imread(rightImgPath, 0);
 
-        static double startT = -1;
-        if (startT < 0)
-            startT = iListData[j + 1].timeStamp;
-        if (iListData[j + 1].timeStamp < startT)
+        if (imLeft.empty())
         {
-            im = cv::Mat::zeros(im.rows, im.cols, im.type());
-            imR = cv::Mat::zeros(im.rows, im.cols, im.type());
-        }
-
-        if (im.empty())
-        {
-            cerr << endl << "Failed to load image at: " << fullPath << endl;
+            cerr << endl << "Failed to load image at: " << leftImgPath << endl;
             return 1;
         }
 
-        if (imR.empty())
+        if (imRight.empty())
         {
-            cerr << endl << "Failed to load image at: " << fullPathR << endl;
+            cerr << endl << "Failed to load image at: " << rightImgPath << endl;
             return 1;
         }
-        memset(fullPath, 0, 500);
-        memset(fullPathR, 0, 500);
 
         // Rectification
-        cv::remap(im, imLeftRect, M1l, M2l, cv::INTER_LINEAR);
-        cv::remap(imR, imRightRect, M1r, M2r, cv::INTER_LINEAR);
+        cv::remap(imLeft, imLeftRect, M1l, M2l, cv::INTER_LINEAR);
+        cv::remap(imRight, imRightRect, M1r, M2r, cv::INTER_LINEAR);
 
         std::chrono::steady_clock::time_point t1 = std::chrono::steady_clock::now();
 
-        SLAM.TrackStereoVIO(imLeftRect, imRightRect, vimuData, iListData[j + 1].timeStamp);
+        SLAM.TrackStereoVIO(imLeftRect, imRightRect, vimuData, vImageTime[j + 1]);
 
         std::chrono::steady_clock::time_point t2 = std::chrono::steady_clock::now();
         double ttrack = std::chrono::duration_cast<std::chrono::duration<double> >(t2 - t1).count();
@@ -178,14 +134,12 @@ int main(int argc, char **argv)
             usleep(1);
         }
     }
-    delete [] fullPath;
-    delete [] fullPathR;
 
-    // from body(IMU) to world.
+    // Twb
     SLAM.SaveKeyFrameTrajectoryNavState(ORB_SLAM2::ConfigParam::_tmpFilePath +argv[7]+ "_StereoVioKeyframe.txt");
 
     // Save camera trajectory
-    SLAM.SaveTrajectoryTUM(ORB_SLAM2::ConfigParam::_tmpFilePath + argv[7]+"_StereoVio.txt"); //from cam to world.
+    SLAM.SaveTrajectoryTUM(ORB_SLAM2::ConfigParam::_tmpFilePath + argv[7]+"_StereoVio.txt"); // Twc
 
     // Tracking time statistics
     sort(vTimesTrack.begin(), vTimesTrack.end());
@@ -198,112 +152,57 @@ int main(int argc, char **argv)
     cout << "median tracking time: " << vTimesTrack[nImages / 2] << endl;
     cout << "mean tracking time: " << totaltime / nImages << endl;
 
-    cout << endl << endl << "press any key to shutdown" << endl;
-    cin.get();
-
     // Stop all threads
     SLAM.Shutdown();
     return 0;
 }
 
-void loadImage(char * imagePath, std::vector<Image> &iListData)
+void loadImage(char *imageFolderPath, std::vector<string> &vImageFilePath, std::vector<double> &vImageTime)
 {
-    ifstream inf;
-    inf.open(imagePath, ifstream::in);
-    const int cnt = 2;
+    ifstream in_file;
+    in_file.open(imageFolderPath, ifstream::in);
 
-    string line;
-    int j = 0;
-    size_t comma = 0;
-    size_t comma2 = 0;
-    Image temp;
-    getline(inf, line);
-    while (!inf.eof())
+    string str;
+    getline(in_file, str);
+    while (!in_file.eof())
     {
-        getline(inf, line);
+        getline(in_file, str);
+        stringstream ss(str);
 
-        comma = line.find(',', 0);
-        stringstream ss;
-        ss << line.substr(0, comma).c_str();
-        ss >> temp.timeStamp ;
-        temp.timeStamp = temp.timeStamp / 1e9;
-
-        while (comma < line.size() && j != cnt - 1)
-        {
-
-            comma2 = line.find(',', comma + 1);
-            temp.imgName = line.substr(comma + 1, comma2 - comma - 1);
-            ++j;
-            comma = comma2;
-        }
-        iListData.push_back(temp);
-        j = 0;
+        getline(ss, str, ',');
+        vImageTime.push_back(atof(str.c_str()) / 1e9);
+        ss >> str;
+        vImageFilePath.push_back('/' + str);
     }
 
-    iListData.pop_back();
-    inf.close();
+    vImageTime.pop_back();
+    vImageFilePath.pop_back();
+    in_file.close();
 }
 
-void loadIMUData(char *imuPath, std::vector<ORB_SLAM2::IMUData> &vimuData)
+void loadIMUData(char *imuFolderPath, std::vector<ORB_SLAM2::IMUData> &vIMUData)
 {
-    ifstream inf;
-    inf.open(imuPath, ifstream::in);
-    const int cnt = 7;
+    ifstream in_file;
+    in_file.open(imuFolderPath, ifstream::in);
 
-    string line;
-    int j = 0;
-    size_t comma = 0;
-    size_t comma2 = 0;
-
-    double acc[3] = {0.0};
-    double grad[3] = {0.0};
-    double imuTimeStamp = 0;
-
-    getline(inf, line);
-    while (!inf.eof())
+    string str;
+    getline(in_file, str);
+    while (!in_file.eof())
     {
-        getline(inf, line);
+        double data[7] = {0.0};
 
-        comma = line.find(',', 0);
-        stringstream ss;
-        ss << line.substr(0, comma).c_str();
-        ss >> imuTimeStamp;
-        while (comma < line.size() && j != cnt - 1)
+        getline(in_file, str);
+        stringstream ss(str);
+
+        for (int i = 0; getline(ss, str, ','); i++)
         {
-
-            comma2 = line.find(',', comma + 1);
-            switch (j)
-            {
-                case 0:
-                    grad[0] = atof(line.substr(comma + 1, comma2 - comma - 1).c_str());
-                    break;
-                case 1:
-                    grad[1] = atof(line.substr(comma + 1, comma2 - comma - 1).c_str());
-                    break;
-                case 2:
-                    grad[2] = atof(line.substr(comma + 1, comma2 - comma - 1).c_str());
-                    break;
-                case 3:
-                    acc[0] = atof(line.substr(comma + 1, comma2 - comma - 1).c_str());
-                    break;
-                case 4:
-                    acc[1] = atof(line.substr(comma + 1, comma2 - comma - 1).c_str());
-                    break;
-                case 5:
-                    acc[2] = atof(line.substr(comma + 1, comma2 - comma - 1).c_str());
-                    break;
-                default:
-                    break;
-            }
-            ++j;
-            comma = comma2;
+            data[i] = atof(str.c_str());
         }
-        ORB_SLAM2::IMUData tempImu(grad[0], grad[1], grad[2], acc[0], acc[1], acc[2], imuTimeStamp / 1e9);
-        vimuData.push_back(tempImu);
-        j = 0;
+
+        ORB_SLAM2::IMUData imuData(data[1], data[2], data[3], data[4], data[5], data[6], data[0] / 1e9);
+        vIMUData.push_back(imuData);
     }
 
-    vimuData.pop_back();
-
-    inf.close();
+    vIMUData.pop_back();
+    in_file.close();
 }

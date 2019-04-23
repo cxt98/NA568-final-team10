@@ -501,9 +501,6 @@ void EdgeNavStatePriorPVRBias::linearizeOplus()
 
 }
 
-/**
- * @brief EdgeNavStatePrior::EdgeNavStatePrior
- */
 void EdgeNavStatePrior::computeError()
 {
     // Estimated NavState
@@ -551,9 +548,6 @@ void EdgeNavStatePrior::linearizeOplus()
     _jacobianOplusXi.block<3, 3>(12, 12) = - Matrix3d::Identity();
 }
 
-/**
- * @brief VertexGravityW::VertexGravityW
- */
 VertexGravityW::VertexGravityW() : BaseVertex<2, Vector3d>()
 {
 
@@ -568,9 +562,6 @@ void VertexGravityW::oplusImpl(const double* update_)
     _estimate = dR * _estimate;
 }
 
-/**
- * @brief EdgeNavStateGw::EdgeNavStateGw
- */
 EdgeNavStateGw::EdgeNavStateGw() : BaseMultiEdge<15, IMUPreintegrator>()
 {
     resize(3);
@@ -674,7 +665,7 @@ void EdgeNavStateGw::linearizeOplus()
     Matrix3d RjT = Rj.transpose();          // Rj^T
     Vector3d rPhiij = _error.segment<3>(6); // residual of rotation, rPhiij
     Matrix3d JrInv_rPhi = Sophus::SO3::JacobianRInv(rPhiij);    // inverse right jacobian of so3 term #rPhiij#
-    Matrix3d J_rPhi_dbg = M.getJRBiasg();              // jacobian of preintegrated rotation-angle to gyro bias i
+    Matrix3d J_rPhi_dbg = M.getJRBiasg();   // jacobian of preintegrated rotation-angle to gyro bias i
 
     // 1.
     // increment is the same as Forster 15'RSS
@@ -811,10 +802,6 @@ void EdgeNavStateGw::linearizeOplus()
     _jacobianOplus[2] = Jgw;
 }
 
-
-/**
- * @brief VertexNavState::VertexNavState
- */
 VertexNavState::VertexNavState() : BaseVertex<15, NavState>()
 {
 
@@ -842,9 +829,6 @@ void VertexNavState::oplusImpl(const double* update_)
     _estimate.IncSmall(update);
 }
 
-/**
- * @brief EdgeNavState::EdgeNavState
- */
 EdgeNavState::EdgeNavState() : BaseBinaryEdge<15, IMUPreintegrator, VertexNavState, VertexNavState>()
 {
 
@@ -853,10 +837,6 @@ EdgeNavState::EdgeNavState() : BaseBinaryEdge<15, IMUPreintegrator, VertexNavSta
 bool EdgeNavState::read(std::istream& is) {return true;}
 bool EdgeNavState::write(std::ostream& os) const {return true;}
 
-/**
- * @brief EdgeNavState::computeError
- * In g2o, computeError() is called in computeActiveErrors(), before buildSystem()
- */
 void EdgeNavState::computeError()
 {
     auto vi = dynamic_cast<const VertexNavState*>(_vertices[0]);
@@ -964,7 +944,7 @@ void EdgeNavState::linearizeOplus()
     Matrix3d RjT = Rj.transpose();          // Rj^T
     Vector3d rPhiij = _error.segment<3>(6); // residual of rotation, rPhiij
     Matrix3d JrInv_rPhi = Sophus::SO3::JacobianRInv(rPhiij);    // inverse right jacobian of so3 term #rPhiij#
-    Matrix3d J_rPhi_dbg = M.getJRBiasg();              // jacobian of preintegrated rotation-angle to gyro bias i
+    Matrix3d J_rPhi_dbg = M.getJRBiasg();   // jacobian of preintegrated rotation-angle to gyro bias i
 
     // 1.
     // increment is the same as Forster 15'RSS
@@ -1085,12 +1065,8 @@ void EdgeNavState::linearizeOplus()
     _jacobianOplusXj.block<3, 3>(12, 12) = I3x3; //dba_j
 }
 
-/**
- * @brief EdgeNavStatePointXYZ::EdgeNavStatePointXYZ
- */
 EdgeNavStatePointXYZ::EdgeNavStatePointXYZ() : BaseBinaryEdge<2, Vector2d, VertexSBAPointXYZ, VertexNavState>()
 {
-
 }
 
 bool EdgeNavStatePointXYZ::read(std::istream& is) {return true;}
@@ -1194,9 +1170,6 @@ void EdgeNavStatePointXYZOnlyPose::linearizeOplus()
     _jacobianOplusXi = JNavState;
 }
 
-/**
- * @brief VertexGyrBias::VertexGyrBias
- */
 VertexGyrBias::VertexGyrBias() : BaseVertex<3, Vector3d>()
 {
 }
@@ -1223,9 +1196,6 @@ void VertexGyrBias::oplusImpl(const double* update_)  {
     _estimate += update;
 }
 
-/**
- * @brief EdgeGyrBias::EdgeGyrBias
- */
 EdgeGyrBias::EdgeGyrBias() : BaseUnaryEdge<3, Vector3d, VertexGyrBias>()
 {
 
