@@ -3,13 +3,19 @@ An stereo version implementation of [Visual Inertial ORBSLAM](https://arxiv.org/
 
 **Tested on [EuRoc](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets) dataset (Vicon Room 1 02). Currently, the code only supports [EuRoc](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets) dataset and cannot run in real-time.**
 
-<a href="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/EuRoC_V1_02_medium.png" target="_blank"><img src="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/EuRoC_V1_02_medium.png" 
+<a href="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/img_result/EuRoC_V1_02_medium.png" target="_blank"><img src="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/img_result/EuRoC_V1_02_medium.png" 
 alt="ORB-SLAM2" width="720" height="540" border="0" /></a>
 
-<a href="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/EuRoC_V1_02_(1).png" target="_blank"><img src="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/EuRoC_V1_02_(1).png" 
+<a href="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/img_result/EuRoC_V1_02_(1).png" target="_blank"><img src="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/img_result/EuRoC_V1_02_(1).png" 
 alt="ORB-SLAM2" width="720" height="540" border="0" /></a>
 
-<a href="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/EuRoC_V1_02_(2).png" target="_blank"><img src="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/EuRoC_V1_02_(2).png" 
+<a href="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/img_result/EuRoC_V1_02_(2).png" target="_blank"><img src="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/img_result/EuRoC_V1_02_(2).png" 
+alt="ORB-SLAM2" width="720" height="540" border="0" /></a>
+
+<a href="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/img_result/APE.png" target="_blank"><img src="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/img_result/APE.png" 
+alt="ORB-SLAM2" width="720" height="540" border="0" /></a>
+
+<a href="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/img_result/box_plot.png" target="_blank"><img src="https://github.com/cxt98/NA568-final-team10/blob/master/ORB_SLAM2/img_result/box_plot.png" 
 alt="ORB-SLAM2" width="720" height="540" border="0" /></a>
 
 # Get Started
