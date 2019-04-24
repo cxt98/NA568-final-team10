@@ -10,7 +10,7 @@ This repo relies on two MATLAB toolboxes: MATLAB's own [Robotics System Toolbox]
 ## Directories
 1. `imu_preint_matlab` - initial pass at MATLAB implementation of IMU factors, and a GTSAM solution for an IMU-only factor graph over the Cassie Blue data.
 2. `IMU_Preintegration` - second pass at MATLAB implementation of IMU factors and solvers. Has a partially-working implementation that we developed, as well as a GTSAM reference. Uses Cassie and KAIST Urban data.
-3. `ORB-SLAM2` - Modified ORB-SLAM2 implementation with IMU factors demonstrating successful improvement of ORB-SLAM2 due to those IMU factors and Stereo vision using the KAIST Urban data.
+3. `ORB-SLAM2` - Modified ORB-SLAM2 implementation with IMU factors demonstrating successful improvement of ORB-SLAM2 due to those IMU factors and Stereo vision using the EuRoC data.
 4. `gtsam` - GTSAM submodule used for compiling the MATLAB wrapper.
 5. `KAIST_urban29_data` - KAIST Urban dataset (#29).
 6. `KITTI_00_data` - KITTI dataset (#00).
