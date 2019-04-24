@@ -54,7 +54,7 @@ function [r_ij, J_ij] = preintegration_factor(R_i, R_j, v_i, v_j, p_i, ...
     sdt_ij = sum(dt_ij);
     
     % Equation (45) - residual calculation
-    r_dRij = so3_to_R3(logm((dR_ij)'*R_i'*R_j))
+    r_dRij = so3_to_R3(logm((dR_ij)'*R_i'*R_j));
     
     r_dvij = R_i'*(v_j-v_i-g*sdt_ij)-(dv_ij);
     

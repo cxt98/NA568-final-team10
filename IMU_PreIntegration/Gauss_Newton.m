@@ -15,23 +15,24 @@ while iter < max_iter
     
     for i = 1:nkey-1
         j = i+1;
+        res_idx = n_state*i+(1:n_state);
         R_i = x_est.R(:,:,i);   % SO(3)
         v_i = x_est.v(:,i);
         p_i = x_est.p(:,i);
         R_j = x_est.R(:,:,j);   % SO(3)
         v_j = x_est.v(:,j);
         p_j = x_est.p(:,j);
-        
-        res_idx = n_state*i+(1:n_state);
+
         [r_ij, J_ij] = preintegration_factor(R_i, R_j, v_i, v_j, p_i, ...
-            p_j, dR_ij, dv_ij, dp_ij, dt_ij, g);      
+            p_j, dR_ij, dv_ij, dp_ij, dt_ij, g); 
+        
         L = chol(Sigma(:,:,i+1),'lower');
+        
+        r(res_idx,1) = L\r_ij;
         A(res_idx,n_state*(i-1)+1:n_state*i) = L\J_ij(1:9,1:9);
         A(res_idx,n_state*i+1:n_state*i+n_state) = L\J_ij(1:9,10:18);
-        r(res_idx,1) = L\r_ij;
     end
     A = sparse(A);
-    
     % solve normal equations
     Jr = -A' * r;
     dx = (A' * A)\Jr;               % Lie algebra
